@@ -85,7 +85,7 @@
         {% csrf_token %}
         <div class="text-center mb-4">
             <img class="mb-4" src="{% static 'login/image/logo.png' %}" alt="" style="height: 72px">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 font-weight-normal">开启向往的旅行吧！</h1>
         </div>
         {% if message %}
             <div class="alert alert-warning">{{ message }}</div>
@@ -101,10 +101,10 @@
         </div>
 
         <div class="mb-3">
-            <a href="/register/">register</a>
+            <a href="/register/">注册新用户</a>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登&nbsp&nbsp&nbsp录</button>
         <p class="mt-5 mb-3 text-muted text-center">© 2019-2020</p>
     </form>
 

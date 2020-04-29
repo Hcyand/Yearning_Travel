@@ -25,7 +25,7 @@
                 {% endif %}
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="username">Username</label>
+                    <label for="username">用户名</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">@</span>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                    <label for="email">邮箱</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
@@ -48,7 +48,7 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="cc-name">Password</label>
+                        <label for="cc-name">密码</label>
                         <input type="text" class="form-control" id="password1" name="password1" placeholder=""
                                required="">
                         <small class="text-muted">不少于六位数</small>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="cc-number">Password again</label>
+                        <label for="cc-number">确认密码</label>
                         <input type="text" class="form-control" id="password2" name="password2" placeholder=""
                                required="">
                         <div class="invalid-feedback">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="address">Address</label>
+                    <label for="address">地址</label>
                     <input type="text" class="form-control" id="address" name="address" placeholder="address"
                            required="">
                     <div class="invalid-feedback">
@@ -77,8 +77,8 @@
                     <div class="col-md-5 mb-3">
                         <label for="country">国家</label>
                         <select class="custom-select d-block w-100" id="country" required="">
-                            <option value="">Choose...</option>
-                            <option>United States</option>
+                            <option value="">选择...</option>
+                            <option>中国</option>
                         </select>
                         <div class="invalid-feedback">
                             Please select a valid country.
@@ -87,8 +87,8 @@
                     <div class="col-md-4 mb-3">
                         <label for="state">省份</label>
                         <select class="custom-select d-block w-100" id="state" required="">
-                            <option value="">Choose...</option>
-                            <option>California</option>
+                            <option value="">选择</option>
+                            <option>江西</option>
                         </select>
                         <div class="invalid-feedback">
                             Please provide a valid state.
@@ -103,10 +103,10 @@
                     </div>
                 </div>
                 <div class="mb-3 col-md-3" style="padding: 0px">
-                    <label for="sex">Sex</label>
+                    <label for="sex">性别</label>
                     <select name="sex" id="sex" class="custom-select" required>
-                        <option selected>male</option>
-                        <option value="female">female</option>
+                        <option selected>男</option>
+                        <option value="female">女</option>
                     </select>
                 </div>
                 <hr class="mb-4">

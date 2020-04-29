@@ -357,18 +357,27 @@
                         <div class="swiper-wrapper pb-5 row">
                             {% if post_list %}
                                 {% for post in post_list %}
-                                    <div class="swiper-slide h-auto px-2"
-                                         style="width: 213px; margin-right: 6px; margin-bottom: 20px">
-                                        <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0">
-                                            <a href="/scenery_look/?p1={{ post.name }}">
+                                    <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
+                                        <div class="card shadow border-0 h-100">
+                                            <a href="#">
                                                 <img src="{{ MEDIA_URL }}{{ post.img.url }}"
-                                                     alt="Card image" class="bg-image">
+                                                     alt="..." class="img-fluid card-img-top" style="height: 233px">
                                             </a>
-                                            <div class="card-body overlay-content">
-                                                <a href="/scenery_look/?p1={{ post.name }}">
-                                                    <h6 class="card-title text-shadow text-uppercase">{{ post.name }}</h6>
+                                            <div class="card-body">
+                                                <a href="#"
+                                                   class="text-uppercase text-muted text-sm letter-spacing-2">{{ post.type }} </a>
+                                                {% csrf_token %}
+                                                <h5 class="my-2"><a href="#" class="text-dark" name="article_name"
+                                                                    methods="get">{{ post.name }}</a></h5>
+                                                <p class="text-gray-500 text-sm my-3"><i
+                                                        class="far fa-clock mr-2"></i>{{ post.c_time }}</p>
+                                                <p class="my-2 text-muted text-sm" style="height: 62px">
+                                                    {{ post.introduce }}</p>
+                                                <a href="/scenery_look/?p1={{ post.name }}"
+                                                   class="btn btn-link pl-0">
+                                                    Read more
+                                                    <i class="fa fa-long-arrow-alt-right ml-2"></i>
                                                 </a>
-                                                <p class="card-text text-sm">{{ post.introduce }}</p>
                                             </div>
                                         </div>
                                     </div>

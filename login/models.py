@@ -17,7 +17,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     sex = models.CharField(max_length=32, choices=gender, default='男')
     address = models.CharField(max_length=256, null=True)
-    img = models.ImageField(upload_to='img', null=True)
+    img = models.ImageField(upload_to='img', default='img/bg3.jpg')
     c_time = models.DateTimeField(auto_now_add=True)
 
     # __str__帮助人性化显示对象信息

@@ -1,0 +1,783 @@
+{% load static %}
+{% load get_like_num %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommend</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
+    <style>
+        .swiper-container-mx-negative {
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+
+        .card-img-overlay-top {
+            position: absolute;
+            top: .75rem;
+            right: 1.25rem;
+            left: 1.25rem;
+        }
+
+        .card-fav-icon svg {
+            vertical-align: middle;
+            opacity: 1;
+            stroke-width: 5;
+        }
+
+        span.active {
+            color: red;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--头部-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+        <div class="container-fluid">
+            <!--弹性盒子设置-->
+            <div class="d-flex align-items-center">
+                <!--logo-->
+                <!--navbar-brand图片自适应导航栏-->
+                <a href="/index/" class="navbar-brand">
+                    <img src="{% static 'login/image/logo.png' %}" alt="Directory logo">
+                </a>
+                <!--搜索栏-->
+                <form action="/search/" id="search" class="form-inline" method="get">
+                    {% csrf_token %}
+                    <div class="ml-lg-2 ml-xl-3">
+                        <input type="text" name="search" id="search_search" placeholder="Search" aria-label="Search"
+                               class="form-control form-control-sm" required>
+                        <button type="submit" class="btn btn-primary btn-sm" value="查询">
+                            <i>Search</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="navbarCollapsed" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/scenery/" class="nav-link">风景</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/article/" class="nav-link">精致旅游</a>
+                    </li>
+                    <li class="nav-item dropdown position-static">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle" aria-expanded="true">
+                            热门分类
+                        </a>
+                        <div class="dropdown-menu py-lg-0 megamenu" style="width: 100%">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="row p-3 pr-lg-0 pl-lg-5 pt-lg-5">
+                                        <div class="col-lg-3">
+                                            <h6 class="text-uppercase">爸妈游</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">红色旅行</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">桂林山水</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">文化遗产</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">祈福拜佛</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">亲子游</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">游乐园</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">民俗体验</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">感受名校</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">海洋公园</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">户外活动</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">徒步登山</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">越野自驾</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">滑雪</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">骑行露营</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">人文节庆</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">禅修养身</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">宗教文化</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">体育赛事</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">深度人文</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h6 class="text-uppercase">周边城市</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">南昌</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">长沙</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">武汉</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">萍乡</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">周边景点</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">武功山</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">庐山</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">黄鹤楼</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">明月山</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">热门景点</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">张家界</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">桂林</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">黄山</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">三亚</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">热门城市</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">武汉</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">南京</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">北京</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">上海</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h6 class="text-uppercase">江西</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">婺源</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">井冈山</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">景德镇</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">三清山</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">湖北</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">武汉</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">神龙架</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">恩施</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">武当山</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">浙江</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">杭州</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">千岛湖</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">乌镇</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">普陀山</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">湖南</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">长沙</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">张家界</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">凤凰古城</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">株洲</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h6 class="text-uppercase">云南</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">丽江</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">大理</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">香格里拉</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">丽江古城</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">广东</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">广州</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">深圳</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">珠海</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">佛山</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">福建</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">厦门</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">武夷山</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">福州</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">鼓浪屿</a>
+                                                </li>
+                                            </ul>
+                                            <h6 class="text-uppercase">广西</h6>
+                                            <ul class="megamenu-list list-unstyled">
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">桂林</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">北海</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">南宁</a>
+                                                </li>
+                                                <li class="megamenu-list-item">
+                                                    <a href="#" class="megamenu-list-link">阳朔</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 d-none d-lg-block">
+                                    <img src="{% static 'login/image/p1.jpg' %}" alt="" class="bg-image">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/buy/" class="nav-link">商品推荐</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/hot_discussion/" class="nav-link">热议</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/profile/" class="nav-link">{{ request.session.user_name }}，你好！</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout/" class="nav-link">登出</a>
+                    </li>
+                    <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block">
+                        <a href="/recommend/" class="btn btn-primary">为你推荐</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--推荐-->
+<section class="position-relative dark-overlay" style="overflow: hidden; padding: 120px;">
+    <img src="" alt="" class="bg-image">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8">
+                <p class="subtitle text-primary">旅行的意义，亦或者是人生的意义 </p>
+                <h2>心之所向</h2>
+            </div>
+            <div class="col-md-4 d-lg-flex align-items-center justify-content-end">
+                <a href="/recommend_scenery/" class="text-muted text-sm">
+                    查看更多
+                    <i class="fa fa-angle-double-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="swiper-container swiper-container-mx-negative swiper-init pt-3 swiper-container-horizontal">
+            <div class="swiper-wrapper pb-5">
+                {% for recommend, star in recommend_scenery_list %}
+                    <div class="swiper-slide h-auto px-2 swiper-slide-duplicate" data-swiper-slide-index="2"
+                         style="width: 266px; margin-right: 20px;">
+                        <!-- place item-->
+                        <div data-marker-id="59c0c8e3a31e62979bf147c9" class="w-100 h-100 hover-animate">
+                            <div class="card h-100 border-0 shadow">
+                                <a href="/scenery_look/?p1={{ recommend.name }}"
+                                   class="card-img-top overflow-hidden gradient-overlay">
+                                    <img src="{{ MEDIA_URL }}{{ recommend.img.url }}"
+                                         alt="Modern Apt - Vibrant Neighborhood!" class="img-fluid"
+                                         style="height: 166px;">
+                                    <div class="card-img-overlay-top text-right">
+                                        <span id="like" onclick="change_like(this, 'scenery', {{ recommend.pk }})">
+                                            <span class="fa fa-heart {% get_like_record 'scenery' recommend.pk request.session.user_pk %}"></span>
+                                        </span>
+                                    </div>
+                                </a>
+                                <div class="card-body d-flex align-items-center">
+                                    <div class="w-100">
+                                        <h6 class="card-title">
+                                            <a href="/scenery_look/?p1={{ recommend.name }}"
+                                               class="text-decoration-none text-dark">
+                                                {{ recommend.name }}
+                                            </a>
+                                        </h6>
+                                        <div class="d-flex card-subtitle mb-3">
+                                            <p class="flex-grow-1 mb-0 text-muted">{{ recommend.type }}</p>
+                                            <p>推荐：</p>
+                                            <p class="mb-0 text-right">
+                                                {% if star > 2 %}
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"> </i>
+                                                {% elif star > 1.5 %}
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-gray-300"> </i>
+                                                {% else %}
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-gray-300"> </i>
+                                                    <i class="fa fa-star text-gray-300"> </i>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <p class="card-text text-muted" style="height: 96px; overflow: hidden">
+                                            {{ recommend.introduce }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="position-relative dark-overlay" style="overflow: hidden; padding: 90px;">
+    <img src="" alt="" class="bg-image">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8">
+                <p class="subtitle text-primary">每一段旅程，都是一段美好的回忆</p>
+                <h2>众之所往</h2>
+            </div>
+            <div class="col-md-4 d-lg-flex align-items-center justify-content-end">
+                <a href="/recommend_article/" class="text-muted text-sm">
+                    查看更多
+                    <i class="fa fa-angle-double-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="swiper-container swiper-container-mx-negative swiper-init pt-3 swiper-container-horizontal">
+            <div class="swiper-wrapper pb-5">
+                {% for recommend, star in recommend_article_list %}
+                    <div class="swiper-slide h-auto px-2 swiper-slide-duplicate" data-swiper-slide-index="2"
+                         style="width: 266px; margin-right: 20px;">
+                    <!-- place item-->
+                        <div data-marker-id="59c0c8e3a31e62979bf147c9" class="w-100 h-100 hover-animate">
+                        <div class="card h-100 border-0 shadow">
+                            <a href="/book/?p1={{ recommend.name }}"
+                               class="card-img-top overflow-hidden gradient-overlay">
+                                <img src="{{ MEDIA_URL }}{{ recommend.img.url }}"
+                                     alt="Modern Apt - Vibrant Neighborhood!" class="img-fluid"
+                                     style="height: 166px;">
+                                <div class="card-img-overlay-top text-right">
+                                        <span id="like" onclick="change_like(this, 'article', {{ recommend.pk }})">
+                                            <span class="fa fa-heart {% get_like_record 'article' recommend.pk request.session.user_pk %}"></span>
+                                        </span>
+                                </div>
+                            </a>>
+                            <div class="card-body d-flex align-items-center">
+                                <div class="w-100">
+                                    <h6 class="card-title">
+                                        <a href="/book/?p1={{ recommend.name }}" class="text-decoration-none text-dark">
+                                            {{ recommend.name }}
+                                        </a>
+                                    </h6>
+                                    <div class="d-flex card-subtitle mb-3">
+                                        <p class="flex-grow-1 mb-0 text-muted">{{ recommend.type }}</p>
+                                        <p>推荐：</p>
+                                        <p class="mb-0 text-right">
+                                            {% if star > 2 %}
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"> </i>
+                                                {% elif star > 1.5 %}
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-gray-300"> </i>
+                                                {% else %}
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-gray-300"> </i>
+                                                    <i class="fa fa-star text-gray-300"> </i>
+                                                {% endif %}
+                                        </p>
+                                    </div>
+                                    <p class="card-text text-muted" style="height: 96px; overflow: hidden">
+                                        {{ recommend.introduce }}
+                                    </p>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+</section>
+<!--底层图片-->
+<section>
+    <div class="container-fluid px-0" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="swiper-container instagram-slider swiper-container-horizontal">
+            <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="swiper-slide overflow-hidden swiper-slide-active" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-1.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden swiper-slide-next" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-2.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-3.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-4.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-5.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-6.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-7.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-8.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-9.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-10.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-11.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-12.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-13.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-14.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-10.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-11.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-12.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-13.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-14.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    </div>
+</section>
+<!--底部-->
+<div class="py-6 bg-gray-200 text-muted">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="font-weight-bold text-uppercase text-dark mb-3">Directory</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="twitter" class="text-muted text-hover-primary">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="facebook" class="text-muted text-hover-primary">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="instagram" class="text-muted text-hover-primary">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="pinterest" class="text-muted text-hover-primary">
+                            <i class="fa fa-pinterest"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="vimeo" class="text-muted text-hover-primary">
+                            <i class="fa fa-vimeo"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                <h6 class="text-uppercase text-dark mb-3">Rentals</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-muted">Rooms </a></li>
+                    <li><a href="#" class="text-muted">Map on top </a></li>
+                    <li><a href="#" class="text-muted">Side map </a></li>
+                    <li><a href="#" class="text-muted">No map </a></li>
+                    <li><a href="#" class="text-muted">Room detail </a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                <h6 class="text-uppercase text-dark mb-3">Pages</h6>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#" class="text-muted">
+                            Comparison
+                            <span class="badge badge-info-light ml-1">New</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-muted">
+                            Team
+                            <span class="badge badge-info-light ml-1">New</span>
+                        </a>
+                    </li>
+                    <li><a href="#" class="text-muted">Contact </a></li>
+                    <li><a href="#" class="text-muted">Pricing </a></li>
+                    <li><a href="#" class="text-muted">Text page </a></li>
+                    <li><a href="#" class="text-muted">F.A.Q.s </a></li>
+                    <li><a href="#" class="text-muted">Coming soon </a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="text-uppercase text-dark mb-3">Daily Offers &amp; Discounts</h6>
+                <p class="mb-3"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
+                <form action="#" id="newsletter-form">
+                    <div class="input-group mb-3">
+                        <input type="email" placeholder="Your Email Address" aria-label="Your Email Address"
+                               class="form-control bg-transparent border-dark border-right-0">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-dark border-left-0">
+                                <i class="fa fa-paper-plane text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--点击喜欢-->
+<script type="text/javascript">
+    function change_like(obj, content_type, object_id) {
+        // 判断obj中是否包含active的元素，用于判断当前状态是否为激活状态
+        var is_like = obj.getElementsByClassName('active').length == 0
+        $.ajax({
+            url: '/like_up/',
+            // 为了避免加入csrf_token令牌，所以使用GET请求
+            type: 'GET',
+            // 返回的数据用于创建一个点赞记录
+            data: {
+                content_type: content_type,
+                object_id: object_id,
+                is_like: is_like,
+            },
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data['status'] == 'SUCCESS') {
+                    // 更新点赞状态
+                    // 通过class找到对应的标签
+                    var record = $(obj.getElementsByClassName('fa'));
+                    if (is_like) {
+                        record.addClass('active')
+                    } else {
+                        record.removeClass('active')
+                    }
+                    // 更新点赞数量
+                    var like_num = $(obj.getElementsByClassName('like_num'));
+                    like_num.text('（' + data['like_num'] + '）')
+
+                } else {
+                    // 以弹窗的形式显示错误信息
+                    alert(data['message'])
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr)
+            }
+        });
+        return false;
+    };
+</script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

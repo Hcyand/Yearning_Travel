@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="{% static '/login/image/logo.png' %}" alt="" style="height: 72px">
+        <h2>注册用户</h2>
+        <p class="lead">请认真填写信息，我们将为你推荐合适的景区，帮助你更好的选择！</p>
+    </div>
+    <div class="row">
+        <div class="order-md-1 container" style="margin-left: 80px; margin-right: 80px">
+            <h4 class="mb-3">开始向往的旅行！</h4>
+            <form class="needs-validation" action="/register/" method="post">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                               required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Your username is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="cc-name">Password</label>
+                        <input type="text" class="form-control" id="password1" name="password1" placeholder=""
+                               required="">
+                        <small class="text-muted">不少于六位数</small>
+                        <div class="invalid-feedback">
+                            Name on card is required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="cc-number">Password again</label>
+                        <input type="text" class="form-control" id="password2" name="password2" placeholder=""
+                               required="">
+                        <div class="invalid-feedback">
+                            Credit card number is required
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="address"
+                           required="">
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="country">国家</label>
+                        <select class="custom-select d-block w-100" id="country" required="">
+                            <option value="">Choose...</option>
+                            <option>United States</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid country.
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="state">省份</label>
+                        <select class="custom-select d-block w-100" id="state" required="">
+                            <option value="">Choose...</option>
+                            <option>California</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please provide a valid state.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="zip">城市</label>
+                        <input type="text" class="form-control" id="zip" placeholder="" required="">
+                        <div class="invalid-feedback">
+                            Zip code required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-3" style="padding: 0px">
+                    <label for="sex">Sex</label>
+                    <select name="sex" id="sex" class="custom-select" required>
+                        <option selected>male</option>
+                        <option value="female">female</option>
+                    </select>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">注册用户</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--底层图片-->
+<section>
+    <div class="container-fluid px-0" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="swiper-container instagram-slider swiper-container-horizontal">
+            <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="swiper-slide overflow-hidden swiper-slide-active" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-1.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden swiper-slide-next" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-2.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-3.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-4.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-5.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-6.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-7.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-8.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-9.jpg"
+                             alt=""
+                             class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-10.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-11.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-12.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-13.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-14.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-10.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-11.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-12.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-13.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+                <div class="swiper-slide overflow-hidden" style="width: 126px;">
+                    <a href="#">
+                        <img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/instagram/instagram-14.jpg"
+                             alt="" class="img-fluid hover-scale">
+                    </a>
+                </div>
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    </div>
+</section>
+<!--底部-->
+<div class="py-6 bg-gray-200 text-muted">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="font-weight-bold text-uppercase text-dark mb-3">Directory</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="twitter" class="text-muted text-hover-primary">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="facebook" class="text-muted text-hover-primary">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="instagram" class="text-muted text-hover-primary">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="pinterest" class="text-muted text-hover-primary">
+                            <i class="fa fa-pinterest"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" target="_blank" title="vimeo" class="text-muted text-hover-primary">
+                            <i class="fa fa-vimeo"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                <h6 class="text-uppercase text-dark mb-3">Rentals</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-muted">Rooms </a></li>
+                    <li><a href="#" class="text-muted">Map on top </a></li>
+                    <li><a href="#" class="text-muted">Side map </a></li>
+                    <li><a href="#" class="text-muted">No map </a></li>
+                    <li><a href="#" class="text-muted">Room detail </a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                <h6 class="text-uppercase text-dark mb-3">Pages</h6>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#" class="text-muted">
+                            Comparison
+                            <span class="badge badge-info-light ml-1">New</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-muted">
+                            Team
+                            <span class="badge badge-info-light ml-1">New</span>
+                        </a>
+                    </li>
+                    <li><a href="#" class="text-muted">Contact </a></li>
+                    <li><a href="#" class="text-muted">Pricing </a></li>
+                    <li><a href="#" class="text-muted">Text page </a></li>
+                    <li><a href="#" class="text-muted">F.A.Q.s </a></li>
+                    <li><a href="#" class="text-muted">Coming soon </a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="text-uppercase text-dark mb-3">Daily Offers &amp; Discounts</h6>
+                <p class="mb-3"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
+                <form action="#" id="newsletter-form">
+                    <div class="input-group mb-3">
+                        <input type="email" placeholder="Your Email Address" aria-label="Your Email Address"
+                               class="form-control bg-transparent border-dark border-right-0">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-dark border-left-0">
+                                <i class="fa fa-paper-plane text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
